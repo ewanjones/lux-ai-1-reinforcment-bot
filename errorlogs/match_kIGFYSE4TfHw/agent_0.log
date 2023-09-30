@@ -1,0 +1,5 @@
+=== Agent Install Log ===
+=== Agent Compile Log ===
+=== Agent Error Log ===
+/Users/ewan/Projects/lux-ai-1/bot/main.py:30: RuntimeWarning: Ignoring unimportable $PYTHONBREAKPOINT: "ipdb.set_trace"
+  breakpoint()
