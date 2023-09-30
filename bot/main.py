@@ -1,38 +1,48 @@
 from agent import agent
 
-if __name__ == "__main__":
 
-    def read_input():
-        """
-        Reads input from stdin
-        """
+class Observation:
+    def __init__(self, inputs) -> None:
+        self.player = int(inputs[0])
+        self.updates = inputs
+        self.step = 0
+
+
+def read_inputs():
+    """
+    Reads input from stdin until D_DONE is received
+    """
+    inputs = []
+
+    while True:
         try:
-            return input()
+            message = input()
         except EOFError as eof:
             raise SystemExit(eof)
 
+        if message == "D_DONE":
+            return inputs
+
+        inputs.append(message)
+
+
+if __name__ == "__main__":
+
     step = 0
 
-    class Observation:
-        def __init__(self, player=0) -> None:
-            self.player = player
-            self.updates = []
-            self.step = 0
-
-    observation = Observation()
-    player_id = 0
-
     while True:
-        inputs = read_input()
-        observation.updates.append(inputs)
+        inputs = read_inputs()
 
         if step == 0:
-            player_id = int(observation.updates[0])
-            observation.player = player_id
-        if inputs == "D_DONE":
-            actions = agent(observation, None)
-            observation.updates = []
-            step += 1
-            observation.step = step
-            print(",".join(actions))
-            print("D_FINISH")
+            # Get initial inputs and initialise observation
+            observation = Observation(inputs=inputs)
+        else:
+            observation.updates = inputs
+
+        actions = agent(observation, None)
+
+        step += 1
+        observation.step = step
+
+        print(",".join(actions))
+        print("D_FINISH")
