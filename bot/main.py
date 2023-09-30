@@ -1,4 +1,3 @@
-from typing import Dict
 from agent import agent
 
 if __name__ == "__main__":
@@ -14,28 +13,26 @@ if __name__ == "__main__":
 
     step = 0
 
-    class Observation(Dict[str, any]):
+    class Observation:
         def __init__(self, player=0) -> None:
             self.player = player
-            # self.updates = []
-            # self.step = 0
+            self.updates = []
+            self.step = 0
 
     observation = Observation()
-    observation["updates"] = []
-    observation["step"] = 0
     player_id = 0
 
     while True:
         inputs = read_input()
-        observation["updates"].append(inputs)
+        observation.updates.append(inputs)
 
         if step == 0:
-            player_id = int(observation["updates"][0])
+            player_id = int(observation.updates[0])
             observation.player = player_id
         if inputs == "D_DONE":
             actions = agent(observation, None)
-            observation["updates"] = []
+            observation.updates = []
             step += 1
-            observation["step"] = step
+            observation.step = step
             print(",".join(actions))
             print("D_FINISH")
