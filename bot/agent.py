@@ -7,7 +7,58 @@ DIRECTIONS = Constants.DIRECTIONS
 game_state = None
 
 
-def agent(observation, configuration):
+class Agent:
+    """
+    Base agent for handling game state and coordinating units/cities.
+
+    This class houses 3 child classes:
+    - Worker
+    - Cart
+    - City
+
+    These implement their own Q-tables (?) and reward functions to dictate their moves.
+
+    Should these should run as separate models, training individually
+    """
+
+    def __init__(self, *, observation):
+        game_state = Game()
+        game_state._initialize(observation.updates)
+        game_state._update(observation.updates[2:])
+        game_state.id = observation.player
+
+    def update(self, *, observation):
+        """
+        Update the game state with another observation.
+        """
+        game_state._update(observation.updates)
+
+    def get_actions(self):
+        """
+        For the given game_state, produce a set of actions for all the units/cities.
+        """
+        pass
+
+
+class Worker:
+    pass
+
+
+class Cart:
+    pass
+
+
+class City:
+    pass
+
+
+def _agent(observation, configuration):
+    """
+    Return a series of actions for a given observation.
+
+    This is called for every step in the game.
+    TODO: Deprecate this!
+    """
     global game_state
 
     # Do not edit ###

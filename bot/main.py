@@ -1,4 +1,4 @@
-from agent import agent
+from agent import _agent, Agent
 
 
 class Observation:
@@ -29,17 +29,25 @@ def read_inputs():
 if __name__ == "__main__":
 
     step = 0
+    agent = None
 
     while True:
+        # Get new game state from stdin
         inputs = read_inputs()
 
         if step == 0:
             # Get initial inputs and initialise observation
             observation = Observation(inputs=inputs)
+            agent = Agent(observation=observation)
         else:
-            observation.updates = inputs
+            if not agent:
+                raise ValueError("Cannot ")
 
-        actions = agent(observation, None)
+            observation.updates = inputs
+            agent.update(observation=observation)
+
+        # TODO: Remove this when agent working
+        actions = _agent(observation, None)
 
         step += 1
         observation.step = step
