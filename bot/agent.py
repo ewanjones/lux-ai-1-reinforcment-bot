@@ -39,7 +39,8 @@ def agent(observation, configuration):
             closest_dist = math.inf
             closest_resource_tile = None
             if unit.get_cargo_space_left() > 0:
-                # if the unit is a worker and we have space in cargo, lets find the nearest resource tile and try to mine it
+                # if the unit is a worker and we have space in cargo, lets
+                # find the nearest resource tile and try to mine it
                 for resource_tile in resource_tiles:
                     if (
                         resource_tile.resource.type == Constants.RESOURCE_TYPES.COAL
@@ -60,7 +61,8 @@ def agent(observation, configuration):
                         unit.move(unit.pos.direction_to(closest_resource_tile.pos))
                     )
             else:
-                # if unit is a worker and there is no cargo space left, and we have cities, lets return to them
+                # if unit is a worker and there is no cargo space left, and
+                # we have cities, lets return to them
                 if len(player.cities) > 0:
                     closest_dist = math.inf
                     closest_city_tile = None
