@@ -1,4 +1,4 @@
-from agent import _agent, Agent
+from agent import Agent
 
 
 class Observation:
@@ -41,13 +41,12 @@ if __name__ == "__main__":
             agent = Agent(observation=observation)
         else:
             if not agent:
-                raise ValueError("Cannot ")
+                raise ValueError("Cannot update without initialising agent")
 
             observation.updates = inputs
             agent.update(observation=observation)
 
-        # TODO: Remove this when agent working
-        actions = _agent(observation, None)
+        actions = agent.get_actions(observation)
 
         step += 1
         observation.step = step
